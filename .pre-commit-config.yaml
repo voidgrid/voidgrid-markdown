@@ -19,8 +19,8 @@ repos:
         always_run: true
         stages: [pre-push]
       - id: golangci-lint
-        name: lint (golangci-lint, tsc, eslint)
-        entry: scripts/lint.sh  # pinned golangci-lint in Docker (same in every repo), then tsc and ESLint
+        name: lint (golangci-lint, markdownlint, tsc, eslint)
+        entry: scripts/lint.sh  # pinned golangci-lint in Docker (same in every repo), then markdownlint, tsc and ESLint
         language: system
-        files: '\.(go|ts|json|mjs)$'  # Go and the TypeScript frontend
+        files: '\.(go|ts|json|mjs|md|jsonc)$'  # Go, the TypeScript frontend and the docs
         pass_filenames: false

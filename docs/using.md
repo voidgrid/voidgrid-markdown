@@ -39,7 +39,7 @@ Things to know:
 ## Saving
 
 | Action | Chrome, Edge | Firefox, Safari |
-|---|---|---|
+| --- | --- | --- |
 | **Save** (Ctrl+S), file known | Writes back to the same file | Downloads the file |
 | **Save** with no file yet | Native Save dialog | Downloads the file |
 | **Save as .md** (Ctrl+Shift+S) | Native Save dialog | Downloads the file |
@@ -64,7 +64,7 @@ Things to know:
 Pick one in the top bar. It applies to the preview and exports and is remembered.
 
 | Flavour | Adds |
-|---|---|
+| --- | --- |
 | **CommonMark** | The strict spec: no tables, strikethrough, task lists, autolinks, alerts or diagrams. Raw HTML allowed (sanitized). |
 | **GitHub (GFM)** | Tables, strikethrough, task lists (read-only checkboxes), autolinked URLs, alerts (`> [!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, `[!CAUTION]`), Mermaid. |
 | **Extended** | GFM plus footnotes (`[^1]`), definition lists, subscript `H~2~O`, superscript `x^2^`, `==mark==`, abbreviations (`*[HTML]: ...`), `:emoji:` shortcodes, and `::: note`, `tip`, `info`, `warning`, `danger` containers closed by `:::`. |
@@ -93,7 +93,7 @@ panel, where a click jumps to the line. Line length (MD013) is off. Front matter
 ## Shortcuts
 
 | Keys | Action |
-|---|---|
+| --- | --- |
 | Ctrl+O | Open |
 | Ctrl+S | Save |
 | Ctrl+Shift+S | Save as .md |

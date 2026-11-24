@@ -30,7 +30,7 @@ Also I suck at writing README.md stuff...
 
 ## Quick start
 
-```
+```sh
 cd examples
 cp .env.example .env
 docker compose up -d
@@ -57,7 +57,7 @@ Open `http://localhost:8793`. The sample [`compose.yaml`](examples/compose.yaml)
 ### Saving to disk
 
 | Browser | Open | Save | Save as .md |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Chrome, Edge (File System Access API) | native Open dialog | writes back to the same file | native Save dialog |
 | Firefox, Safari | file input | downloads the file | downloads the file |
 
@@ -79,7 +79,7 @@ tag, `:latest` only stable ones, and each tag (e.g. `:v0.1.0`) is fixed.
 ### Settings
 
 | Variable | Required | Default | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `VGM_LISTEN_ADDR` | no | `127.0.0.1:8793` (`0.0.0.0:8793` in the image) | Address the app listens on |
 
 ### Compose
@@ -105,7 +105,7 @@ examples with authentication, are in [docs/deployment.md](docs/deployment.md).
 
 Everything runs in Docker; nothing is needed on the host but Docker and `pre-commit`.
 
-```
+```sh
 scripts/lint.sh    # golangci-lint (Go) and tsc + ESLint (TypeScript)
 scripts/test.sh    # Vitest, npm audit, then the Go tests
 scripts/e2e.sh     # builds the image and runs the Playwright browser tests against it

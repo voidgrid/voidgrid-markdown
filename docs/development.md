@@ -4,7 +4,7 @@ Everything runs in Docker. The host needs Docker and `pre-commit`; no Go or Node
 
 ## Layout
 
-```
+```text
 cmd/voidgrid-markdown/    main: the HTTP server
 internal/web/             embedded static server, headers, tests
 internal/web/static/      index.html, style.css, favicon (dist/ is generated, not tracked)
@@ -27,8 +27,8 @@ through `sanitize.ts`, no inline script, no network calls from the app.
 ## Scripts
 
 | Script | Does |
-|---|---|
-| `scripts/lint.sh` | golangci-lint v2.15.0, then `tsc` and ESLint |
+| --- | --- |
+| `scripts/lint.sh` | golangci-lint v2.15.0, markdownlint-cli2 v0.24.2 on `README.md` and `docs/`, then `tsc` and ESLint |
 | `scripts/test.sh` | Vitest, `npm audit`, then the Go tests with `-race` |
 | `scripts/e2e.sh` | Builds the image, runs it, drives it with Playwright (headless Chromium) |
 | `scripts/bundle.sh` | Type-checks and bundles the frontend into `internal/web/static/dist` |
@@ -43,7 +43,9 @@ both together.
 ## Hooks and CI
 
 `pre-commit install` sets up gitleaks on commit, gitleaks over the whole history on push, and
-`scripts/lint.sh`. CI has three workflows: `test` (Dockerfile gate plus the Playwright run on every push and
+`scripts/lint.sh`. Markdown rules are in `.markdownlint-cli2.jsonc` (line length 120, tables compact).
+
+CI has three workflows: `test` (the Dockerfile gate, markdownlint and the Playwright run on every push and
 pull request), `gitleaks`, and `release`.
 
 ## Tests

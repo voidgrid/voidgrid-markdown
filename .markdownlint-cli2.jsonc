@@ -1,0 +1,12 @@
+{
+  // Rules for the repo's own markdown (README.md and docs/). Run by scripts/lint.sh.
+  "config": {
+    "default": true,
+    // Prose is wrapped near 110 columns. Tables and code blocks hold long lines that cannot be wrapped.
+    "MD013": { "line_length": 120, "tables": false, "code_blocks": false },
+    // Tables are written "| a | b |" with spaces around every pipe, separator row included.
+    "MD060": { "style": "compact" }
+  },
+  "globs": ["README.md", "docs/*.md", "examples/*.md"],
+  "gitignore": true
+}

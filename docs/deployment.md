@@ -18,7 +18,7 @@ browser and on their disk, so there is nothing to back up.
 `ghcr.io/voidgrid/voidgrid-markdown`, built by GitHub Actions on version tags (`v*`).
 
 | Tag | Follows |
-|---|---|
+| --- | --- |
 | `:v0.1.0` | That exact version; never moves |
 | `:beta` | Every tag, including pre-releases such as `v0.1.0-beta.1` |
 | `:latest` | Stable tags only (no hyphen) |
@@ -31,7 +31,7 @@ read-only root filesystem.
 Copy [`examples/compose.yaml`](../examples/compose.yaml) and [`examples/.env.example`](../examples/.env.example)
 into one folder, rename the second to `.env`, and start it:
 
-```
+```sh
 cp .env.example .env
 docker compose up -d
 ```
@@ -39,7 +39,7 @@ docker compose up -d
 `.env` settings (all optional):
 
 | Variable | Default | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `VGM_IMAGE_TAG` | `beta` | Image tag to run |
 | `VGM_BIND` | `127.0.0.1` | Host address the port binds to. Keep it on loopback when the proxy runs on the same host |
 | `VGM_PORT` | `8793` | Host port mapped to the container's 8793 |
@@ -48,7 +48,7 @@ docker compose up -d
 Inside the container the app reads one setting:
 
 | Variable | Default | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `VGM_LISTEN_ADDR` | `127.0.0.1:8793` (the image sets `0.0.0.0:8793`) | Address the server listens on |
 
 The example compose file also drops all capabilities, sets `no-new-privileges` and mounts the root
@@ -72,12 +72,12 @@ outside. Choose what fits your setup:
 
 Generate a password hash with `caddy hash-password`, then:
 
-```
+```caddyfile
 markdown.example.com {
-	basic_auth {
-		alice <hash from caddy hash-password>
-	}
-	reverse_proxy 127.0.0.1:8793
+    basic_auth {
+        alice <hash from caddy hash-password>
+    }
+    reverse_proxy 127.0.0.1:8793
 }
 ```
 
@@ -85,7 +85,7 @@ markdown.example.com {
 
 Create the file with `htpasswd -c /etc/nginx/markdown.htpasswd alice`, then:
 
-```
+```nginx
 server {
     listen 443 ssl;
     server_name markdown.example.com;
@@ -109,7 +109,7 @@ rewrite `Content-Security-Policy` should leave it alone.
 
 From a machine that is not logged in:
 
-```
+```sh
 curl -sI https://markdown.example.com/ | head -1
 ```
 
@@ -123,7 +123,7 @@ proxy, exempt only that path from authentication, and only for your monitor's ad
 
 ## Upgrading
 
-```
+```sh
 docker compose pull
 docker compose up -d
 ```
