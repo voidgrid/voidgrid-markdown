@@ -32,7 +32,8 @@ run_logged e2e docker run --rm --network "$NET" --ipc=host \
   --user "$(id -u):$(id -g)" \
   -e HOME=/tmp \
   -e BASE_URL="http://$APP:8793" \
-  -v "$ROOT/frontend":/work -w /work \
+  -e PW_VERSION="$PW_VERSION" \
+  -v "$ROOT/frontend":/work:ro \
   "mcr.microsoft.com/playwright:v${PW_VERSION}-noble" \
-  npx playwright test
+  sh -c 'set -e; mkdir /tmp/pw; cp -r /work/e2e /work/playwright.config.ts /tmp/pw; cd /tmp/pw; npm init -y >/dev/null; npm install --no-audit --no-fund "@playwright/test@$PW_VERSION"; npx playwright test'
 exit $?

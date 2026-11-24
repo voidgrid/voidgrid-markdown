@@ -1,11 +1,17 @@
-# Example only: adjust the port to your setup.
-# Serve it through an HTTPS reverse proxy (see README: Deployment): the browser only offers
-# save-in-place and some other features on https:// or localhost.
+# Example: copy this file and .env.example (as .env) into one folder, edit .env, then `docker compose up -d`.
+#
+# voidgrid-markdown has NO authentication. The default below publishes the port on 127.0.0.1 only, so
+# a reverse proxy on the same host can reach it and nothing else can. To expose it beyond that host,
+# put a reverse proxy WITH AUTHENTICATION in front (see docs/deployment.md).
 services:
   voidgrid-markdown:
-    image: ghcr.io/voidgrid/voidgrid-markdown:beta
+    image: ghcr.io/voidgrid/voidgrid-markdown:${VGM_IMAGE_TAG:-beta}
     restart: unless-stopped
     ports:
-      - "8793:8793"
+      - "${VGM_BIND:-127.0.0.1}:${VGM_PORT:-8793}:8793"
     environment:
-      TZ: Etc/UTC
+      TZ: ${TZ:-Etc/UTC}
+    # The app is one static binary with nothing to write, so it can run locked down.
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]

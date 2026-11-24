@@ -5,6 +5,28 @@ live preview, save it back or download it as `.md`. It replaces Dillinger, which
 known security problems. Everything runs in your browser; the server only hands out the static app, and
 no document is ever sent to it.
 
+> **There is no authentication.** Anyone who can reach the port can use the editor. Run it on a private
+> network, or, if it is reachable from the internet, **only behind a reverse proxy that requires a login**
+> (basic auth, Authelia, oauth2-proxy and the like). See [docs/deployment.md](docs/deployment.md#authentication).
+
+## Documentation
+
+- [Using the editor](docs/using.md): files, saving, flavours, validator, shortcuts
+- [Deployment](docs/deployment.md): compose, `.env`, reverse proxy with authentication, upgrades
+- [Security](docs/security.md) and [Troubleshooting](docs/troubleshooting.md)
+- [Development](docs/development.md): scripts, tests, releases
+
+## Quick start
+
+```
+cd examples
+cp .env.example .env
+docker compose up -d
+```
+
+Open `http://localhost:8793`. The sample [`compose.yaml`](examples/compose.yaml) publishes the port on
+`127.0.0.1` only; see [`.env.example`](examples/.env.example) for its settings.
+
 ## Features
 
 - **Three flavours**, switchable per session: CommonMark (strict), GitHub (GFM: tables, task lists,
@@ -38,7 +60,8 @@ tag, `:latest` only stable ones, and each tag (e.g. `:v0.1.0`) is fixed.
 
 ### Requirements
 
-- **HTTPS in front** for anything but `localhost`, or the browser will not offer save in place.
+- **A reverse proxy with authentication and HTTPS** for anything but your own machine. The app has no
+  login of its own, and the browser offers save in place only on `https://` or `localhost`.
 - Nothing else: no database, no volume, no outgoing connections. The image runs as uid/gid `1000:1000`.
 
 ### Settings
@@ -49,8 +72,9 @@ tag, `:latest` only stable ones, and each tag (e.g. `:v0.1.0`) is fixed.
 
 ### Compose
 
-See [`examples/compose.yaml`](examples/compose.yaml). Route the proxy to port `8793`. The image has a
-healthcheck on `/healthz`.
+See [`examples/compose.yaml`](examples/compose.yaml) and [`examples/.env.example`](examples/.env.example).
+Route the proxy to port `8793`. The image has a healthcheck on `/healthz`. Full details, including proxy
+examples with authentication, are in [docs/deployment.md](docs/deployment.md).
 
 ## Security
 
