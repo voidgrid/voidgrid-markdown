@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      # Same pinned version as scripts/lint.sh; rules are in .markdownlint-cli2.jsonc.
+      # Rules are in .markdownlint-cli2.jsonc; the version is pinned in scripts/lint-md.sh.
       - name: markdownlint
-        run: docker run --rm -v "$PWD":/workdir davidanson/markdownlint-cli2:v0.24.2
+        run: scripts/lint-md.sh
   e2e:
     runs-on: ubuntu-24.04
     steps:

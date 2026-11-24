@@ -28,7 +28,8 @@ through `sanitize.ts`, no inline script, no network calls from the app.
 
 | Script | Does |
 | --- | --- |
-| `scripts/lint.sh` | golangci-lint v2.15.0, markdownlint-cli2 v0.24.2 on `README.md` and `docs/`, then `tsc` and ESLint |
+| `scripts/lint.sh` | golangci-lint v2.15.0, then `tsc` and ESLint |
+| `scripts/lint-md.sh` | markdownlint-cli2 v0.24.2 on the tracked markdown files; `--fix` rewrites what it can |
 | `scripts/test.sh` | Vitest, `npm audit`, then the Go tests with `-race` |
 | `scripts/e2e.sh` | Builds the image, runs it, drives it with Playwright (headless Chromium) |
 | `scripts/bundle.sh` | Type-checks and bundles the frontend into `internal/web/static/dist` |
@@ -42,8 +43,8 @@ both together.
 
 ## Hooks and CI
 
-`pre-commit install` sets up gitleaks on commit, gitleaks over the whole history on push, and
-`scripts/lint.sh`. Markdown rules are in `.markdownlint-cli2.jsonc` (line length 120, tables compact).
+`pre-commit install` sets up gitleaks on commit, gitleaks over the whole history on push,
+`scripts/lint.sh` and `scripts/lint-md.sh`. Markdown rules are in `.markdownlint-cli2.jsonc` (line length 120, tables compact).
 
 CI has three workflows: `test` (the Dockerfile gate, markdownlint and the Playwright run on every push and
 pull request), `gitleaks`, and `release`.
