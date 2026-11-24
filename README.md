@@ -5,6 +5,18 @@ live preview, save it back or download it as `.md`. It replaces Dillinger, which
 known security problems. Everything runs in your browser; the server only hands out the static app, and
 no document is ever sent to it.
 
+I wrote this using Claude. Dillinger is out of date and I wanted a markdown editor that I could run myself, so I
+designed what I wanted (what it opens, how it saves, how it stays in the browser) and Claude wrote the code. I am
+not a Go or frontend developer and I have not read all of it. I don't trust purely vibe coded projects and neither
+should you. This is a one person plus AI project built for my own homelab, so you probably shouldn't use it. If you
+do anyway, I advise, very strongly, to read the code before trusting it. I am not asking you to trust me at all, as
+I am using Claude, so for the love of God dig into the code yourself and understand it before running it. For all
+you know it could get your fridge pregnant, turn your toaster into a Transformer, cause your significant other to
+expect you to actually do the dishes, or summon Abraxas in the middle of your bathroom whilst you are showering,
+and I wouldn't want you blaming me for any of that.
+
+Also I suck at writing README.md stuff...
+
 > **There is no authentication.** Anyone who can reach the port can use the editor. Run it on a private
 > network, or, if it is reachable from the internet, **only behind a reverse proxy that requires a login**
 > (basic auth, Authelia, oauth2-proxy and the like). See [docs/deployment.md](docs/deployment.md#authentication).
