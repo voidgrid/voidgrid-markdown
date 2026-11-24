@@ -1,0 +1,11 @@
+# Example only: adjust the port to your setup.
+# Serve it through an HTTPS reverse proxy (see README: Deployment): the browser only offers
+# save-in-place and some other features on https:// or localhost.
+services:
+  voidgrid-markdown:
+    image: ghcr.io/voidgrid/voidgrid-markdown:beta
+    restart: unless-stopped
+    ports:
+      - "8793:8793"
+    environment:
+      TZ: Etc/UTC

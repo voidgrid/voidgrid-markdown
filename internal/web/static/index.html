@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>voidgrid-markdown</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+<script type="module" src="/dist/app.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <span class="brand">voidgrid-markdown &gt;_</span>
+  <input class="doc-name" id="doc-name" type="text" aria-label="File name" maxlength="120" spellcheck="false" autocomplete="off">
+  <span class="spacer"></span>
+  <label class="field">Flavour
+    <select id="flavour" aria-describedby="flavour-hint"></select>
+  </label>
+  <div class="seg" role="group" aria-label="View">
+    <button type="button" data-view="edit">Edit</button>
+    <button type="button" data-view="split">Split</button>
+    <button type="button" data-view="preview">Preview</button>
+  </div>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="File">
+  <button type="button" id="btn-new" title="New document">New</button>
+  <button type="button" id="btn-open" title="Open from disk (Ctrl+O)">Open</button>
+  <button type="button" id="btn-save" class="primary" title="Save (Ctrl+S)">Save</button>
+  <button type="button" id="btn-save-as" title="Save as markdown (Ctrl+Shift+S)">Save as .md</button>
+  <details class="menu" id="export-menu">
+    <summary>Export</summary>
+    <div class="menu-items">
+      <button type="button" data-export="md">Markdown (.md)</button>
+      <button type="button" data-export="html">HTML (.html)</button>
+      <button type="button" data-export="pdf">PDF (print)</button>
+    </div>
+  </details>
+  <span class="spacer"></span>
+  <label class="check"><input type="checkbox" id="sync-scroll"> Sync scroll</label>
+  <button type="button" id="btn-outline" aria-pressed="false" title="Heading outline">Outline</button>
+  <button type="button" id="btn-problems" aria-pressed="false" title="Markdown lint problems">Problems <span id="problem-count">0</span></button>
+</div>
+
+<nav class="tabs" id="tabs" aria-label="Documents"></nav>
+
+<div class="format" role="toolbar" aria-label="Formatting">
+  <button type="button" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+  <button type="button" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+  <button type="button" data-cmd="strike" title="Strikethrough"><s>S</s></button>
+  <button type="button" data-cmd="code" title="Inline code (Ctrl+E)">&lt;/&gt;</button>
+  <button type="button" data-cmd="link" title="Link (Ctrl+K)">Link</button>
+  <button type="button" data-cmd="h1" title="Heading 1">H1</button>
+  <button type="button" data-cmd="h2" title="Heading 2">H2</button>
+  <button type="button" data-cmd="h3" title="Heading 3">H3</button>
+  <button type="button" data-cmd="ul" title="Bulleted list">&bull; List</button>
+  <button type="button" data-cmd="ol" title="Numbered list">1. List</button>
+  <button type="button" data-cmd="task" title="Task list">[ ] Task</button>
+  <button type="button" data-cmd="quote" title="Quote">&gt; Quote</button>
+  <button type="button" data-cmd="codeblock" title="Code block">Code block</button>
+  <button type="button" data-cmd="table" title="Table">Table</button>
+  <button type="button" data-cmd="hr" title="Horizontal rule">Rule</button>
+  <button type="button" data-cmd="find" title="Find and replace (Ctrl+F)">Find</button>
+</div>
+
+<div class="workspace" id="workspace" data-view="split">
+  <aside class="outline" id="outline" aria-label="Outline" hidden>
+    <h2>Outline</h2>
+    <ul id="outline-list"></ul>
+  </aside>
+  <section class="pane editor-pane" id="editor" aria-label="Editor"></section>
+  <section class="pane preview-pane" aria-label="Preview">
+    <article class="preview" id="preview" tabindex="0"></article>
+  </section>
+</div>
+
+<section class="problems" id="problems" aria-label="Problems" hidden>
+  <h2>Problems</h2>
+  <ul id="problem-list"></ul>
+  <p class="none" id="problem-none">No problems found.</p>
+</section>
+
+<footer class="status" role="status">
+  <span id="st-cursor">Ln 1, Col 1</span>
+  <span id="st-stats"></span>
+  <span class="spacer"></span>
+  <span id="flavour-hint"></span>
+  <span id="st-saved"></span>
+</footer>
+
+<dialog id="confirm" aria-labelledby="confirm-text">
+  <p id="confirm-text"></p>
+  <div class="buttons">
+    <button type="button" id="confirm-cancel">Cancel</button>
+    <button type="button" id="confirm-ok" class="danger primary">Discard</button>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="alert" hidden></div>
+<div class="drop-overlay" id="drop" hidden>Drop markdown files to open them</div>
+<noscript><p class="noscript">voidgrid-markdown needs JavaScript. Nothing is sent to the server: the editor runs entirely in your browser.</p></noscript>
+</body>
+</html>

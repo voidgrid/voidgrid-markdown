@@ -1,0 +1,35 @@
+name: test
+
+# Runs the Dockerfile's lint, type check, unit tests, vet and Go tests on every branch push and pull
+# request, then the Playwright browser tests against the built image, so a broken main shows before a
+# tag. Tags are covered by the release build, which runs the same Dockerfile stages.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      # Anonymous base image pulls are rate limited.
+      - uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: lint, unit tests, vet and Go tests
+        run: docker build --target builder -f deploy/docker/Dockerfile .
+  e2e:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: browser tests
+        run: scripts/e2e.sh

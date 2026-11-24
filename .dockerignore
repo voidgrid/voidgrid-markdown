@@ -1,0 +1,9 @@
+.git
+bin/
+.dev/
+reference/
+.env
+frontend/node_modules/
+frontend/test-results/
+frontend/playwright-report/
+internal/web/static/dist/
